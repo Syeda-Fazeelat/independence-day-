@@ -63,37 +63,52 @@
     </section>
     
     <script>
-        document.getElementById('name-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const userName = document.getElementById('user-name').value.trim();
-            
-            if (userName) {
-                // Store the name in localStorage
-                localStorage.setItem('independenceDayUser  Name', userName); // No space in the key
-                document.getElementById('entry-page').classList.add('hidden');
-                document.getElementById('wishes-page').classList.remove('hidden');
-                document.getElementById('display-name').textContent = `${userName}!`;
-            }
-        });
+       // Handle form submit
+document.getElementById('name-form').addEventListener('submit', function (e) {
+    e.preventDefault();
 
-        // Back to Home button functionality
-        document.getElementById('back-home-btn').addEventListener('click', function() {
-            document.getElementById('wishes-page').classList.add('hidden');
-            document.getElementById('entry-page').classList.remove('hidden');
-            document.getElementById('user-name').value = ''; // Clear the input field
-        });
+    const userName = document.getElementById('user-name').value.trim();
 
-        // Check if there's a stored name (for page refresh)
-        window.addEventListener('load', function() {
-            const storedName = localStorage.getItem('independenceDayUser  Name'); // Consistent key usage
-            if (storedName) {
-                document.getElementById('entry-page').classList.add('hidden');
-                document.getElementById('wishes-page').classList.remove('hidden');
-                document.getElementById('display-name').textContent = `${storedName}!`;
-            }
-        });
+    if (userName) {
+        // Store the name in localStorage (only for this session)
+        localStorage.setItem('independenceDayUserName', userName);
+
+        // Show wishes page
+        document.getElementById('entry-page').classList.add('hidden');
+        document.getElementById('wishes-page').classList.remove('hidden');
+        document.getElementById('display-name').textContent = `${userName}!`;
+    }
+});
+
+// Back to Home button
+document.getElementById('back-home-btn').addEventListener('click', function () {
+    // Clear the stored name so the entry page shows next time
+    localStorage.removeItem('independenceDayUserName');
+
+    // Show entry page
+    document.getElementById('wishes-page').classList.add('hidden');
+    document.getElementById('entry-page').classList.remove('hidden');
+    document.getElementById('user-name').value = '';
+});
+
+// On page load
+window.addEventListener('load', function () {
+    const storedName = localStorage.getItem('independenceDayUserName');
+
+    if (storedName) {
+        // Show wishes page if a name was saved
+        document.getElementById('entry-page').classList.add('hidden');
+        document.getElementById('wishes-page').classList.remove('hidden');
+        document.getElementById('display-name').textContent = `${storedName}!`;
+    } else {
+        // Always start on entry page if no name saved
+        document.getElementById('wishes-page').classList.add('hidden');
+        document.getElementById('entry-page').classList.remove('hidden');
+    }
+});
+
     </script>
 </body>
 </html>
+
 
