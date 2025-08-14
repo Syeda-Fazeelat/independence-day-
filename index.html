@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pakistan Independence Day Celebration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="flag.css">
+</head>
+<body>
+    <!-- First Page - Entry Form -->
+    <section id="entry-page">
+        <div class="fullscreen-bg">
+            <video src="video1.mp4" alt="Pakistan Independence Day celebration with fireworks and national flag in the background" class="fullscreen-bg__video" id="page1-bg-video" autoplay loop muted>
+            </video>
+        </div>
+    
+        <div class="overlay">
+            <h1 class="main-heading1">Happy Independence Day</h1>
+            <p class="sub-heading1">Celebrating 78 Years of Freedom and Progress</p>
+            
+            <div class="form-container">
+                <h2 class="text-xl md:text-2xl font-bold mb-6 text-white text-center">Enter Your Name</h2>
+                <form id="name-form">
+                    <input type="text" id="user-name" class="input-field" placeholder="Type your name here" required>
+                    <button type="submit" class="submit-btn">Celebrate Independence</button>
+                </form>
+            </div>
+            
+            <div class="flag-animation">
+                <img src="grou.webp" alt="Animated Pakistan flag waving in the wind" style="width: 100%; height: 100%; object-fit: contain;">
+            </div>
+        </div>
+    </section>
+    
+    <!-- Second Page - Wishes -->
+    <section id="wishes-page" class="hidden">
+        <div class="fullscreen-bg">
+            <video src="video2.mp4" alt="Pakistan landmarks and scenery montage for Independence Day" class="fullscreen-bg__video" id="page2-bg-video" autoplay loop muted>
+            </video>
+        </div>
+        
+        <div class="overlay">
+            <div class="wishes-container">
+                <h1 class="main-heading" style="margin-bottom: 0.5rem;">Happy Independence Day</h1>
+                <p class="sub-heading">Pakistan Zindabad!</p>
+                
+                <div class="user-name" id="display-name"></div>
+                
+                <div class="wishes-message">
+                    <p>On this special day, we celebrate the freedom and unity of our beloved Pakistan. May our nation continue to prosper and shine brightly on the global stage.</p>
+                    <p>The green and white flag waves with pride today and always, representing our rich heritage and bright future.</p>
+                </div>
+                
+                <div class="flag-animation">
+                    <img src="grou.webp" alt="Animated Pakistan flag waving in the wind" style="width: 100%; height: 100%; object-fit: contain;">
+                </div>
+                
+                <!-- Back to Home Button -->
+                <button id="back-home-btn" class="submit-btn mt-4">Back to Home</button>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.getElementById('name-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const userName = document.getElementById('user-name').value.trim();
+            
+            if (userName) {
+                // Store the name in localStorage
+                localStorage.setItem('independenceDayUser  Name', userName); // No space in the key
+                document.getElementById('entry-page').classList.add('hidden');
+                document.getElementById('wishes-page').classList.remove('hidden');
+                document.getElementById('display-name').textContent = `${userName}!`;
+            }
+        });
+
+        // Back to Home button functionality
+        document.getElementById('back-home-btn').addEventListener('click', function() {
+            document.getElementById('wishes-page').classList.add('hidden');
+            document.getElementById('entry-page').classList.remove('hidden');
+            document.getElementById('user-name').value = ''; // Clear the input field
+        });
+
+        // Check if there's a stored name (for page refresh)
+        window.addEventListener('load', function() {
+            const storedName = localStorage.getItem('independenceDayUser  Name'); // Consistent key usage
+            if (storedName) {
+                document.getElementById('entry-page').classList.add('hidden');
+                document.getElementById('wishes-page').classList.remove('hidden');
+                document.getElementById('display-name').textContent = `${storedName}!`;
+            }
+        });
+    </script>
+</body>
+</html>
